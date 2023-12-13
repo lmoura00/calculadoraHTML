@@ -5,6 +5,7 @@ var valor =  document.createElement('h1')
 var btMPlus = document.getElementById("m+")
 var btMMinus = document.getElementById("m-")
 var btMR = document.getElementById("mr")
+var btMC = document.getElementById("mc")
 var btDot = document.getElementById("button .")
 var bt00 = document.getElementById("button 00")
 var bt0 = document.getElementById("button 0")
@@ -26,7 +27,7 @@ var btC = document.getElementById("btn C")
 var btPorCento = document.getElementById("btn porCento")
 var btResult = document.getElementById("btn result")
 
-
+var operacaoPendente = '';
 var memoria = 0;
 var energia = 0
 var texto = document.createTextNode(0)
@@ -293,9 +294,17 @@ function Porcentagem() {
     }
 }
 
+function LimparMemoria() {
+    if (energia === 1) {
+        memoria = 0;
+        window.alert("Memória limpa!");
+    } else {
+        window.alert("Por favor, ligue a calculadora primeiro!");
+    }
+}
+
 function ExibirResultado() {
     if (energia === 1) {
-        // Realize a operação pendente, se houver
         let numeroAtual = parseFloat(valor.textContent);
         switch (operacaoPendente) {
             case '+':
@@ -316,9 +325,10 @@ function ExibirResultado() {
                 memoria *= numeroAtual;
                 break;
             default:
+                memoria = numeroAtual; // Se nenhuma operação pendente, a memória será o próprio número
                 break;
         }
-        valor.textContent = memoria;
+        valor.textContent = memoria; // Atualiza o visor com o valor da memória
         operacaoPendente = ''; // Limpa a operação pendente
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
@@ -354,3 +364,4 @@ btMult.addEventListener('click', Multiplicar);
 btC.addEventListener('click', Limpar);
 btPorCento.addEventListener('click', Porcentagem);
 btResult.addEventListener('click', ExibirResultado);
+btMC.addEventListener('click', LimparMemoria);
