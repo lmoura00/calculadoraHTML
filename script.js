@@ -29,6 +29,7 @@ var btResult = document.getElementById("btn result")
 
 var operacaoPendente = '';
 var memoria = 0;
+var guardado = 0
 var energia = 0
 var texto = document.createTextNode(0)
 valor.appendChild(texto)
@@ -236,8 +237,9 @@ function RecuperarMemoria() {
 function Somar() {
     if (energia === 1) {
         let numeroAtual = parseFloat(valor.textContent);
-        memoria += numeroAtual;
+        guardado += numeroAtual;
         valor.textContent = '0';
+        //alert(valor.value)
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
     }
@@ -246,7 +248,7 @@ function Somar() {
 function Subtrair() {
     if (energia === 1) {
         let numeroAtual = parseFloat(valor.textContent);
-        memoria -= numeroAtual;
+        guardado -= numeroAtual;
         valor.textContent = '0';
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
@@ -257,7 +259,7 @@ function Dividir() {
     if (energia === 1) {
         let numeroAtual = parseFloat(valor.textContent);
         if (numeroAtual !== 0) {
-            memoria /= numeroAtual;
+            guardado /= numeroAtual;
             valor.textContent = '0';
         } else {
             window.alert("Não é possível dividir por zero!");
@@ -270,7 +272,7 @@ function Dividir() {
 function Multiplicar() {
     if (energia === 1) {
         let numeroAtual = parseFloat(valor.textContent);
-        memoria *= numeroAtual;
+        guardado *= numeroAtual;
         valor.textContent = '0';
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
@@ -280,6 +282,7 @@ function Multiplicar() {
 function Limpar() {
     if (energia === 1) {
         valor.textContent = '0';
+        guardado = 0
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
     }
@@ -297,6 +300,7 @@ function Porcentagem() {
 function LimparMemoria() {
     if (energia === 1) {
         memoria = 0;
+        guardado = 0
         window.alert("Memória limpa!");
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
@@ -305,31 +309,7 @@ function LimparMemoria() {
 
 function ExibirResultado() {
     if (energia === 1) {
-        let numeroAtual = parseFloat(valor.textContent);
-        switch (operacaoPendente) {
-            case '+':
-                memoria += numeroAtual;
-                break;
-            case '-':
-                memoria -= numeroAtual;
-                break;
-            case '/':
-                if (numeroAtual !== 0) {
-                    memoria /= numeroAtual;
-                } else {
-                    window.alert("Não é possível dividir por zero!");
-                    return; // Para interromper a execução se houver divisão por zero
-                }
-                break;
-            case '*':
-                memoria *= numeroAtual;
-                break;
-            default:
-                memoria = numeroAtual; // Se nenhuma operação pendente, a memória será o próprio número
-                break;
-        }
-        valor.textContent = memoria; // Atualiza o visor com o valor da memória
-        operacaoPendente = ''; // Limpa a operação pendente
+        valor.textContent = guardado
     } else {
         window.alert("Por favor, ligue a calculadora primeiro!");
     }
